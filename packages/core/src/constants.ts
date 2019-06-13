@@ -17,17 +17,22 @@ export const identity = <T>(arg: T) => arg
 /**
  * Connector property.
  */
-export const CONNECTORS_PROPERTY = 'connectors'
+export const CONNECTORS_PROPERTY = Symbol('connectors')
 
 /**
  * Destructor property.
  */
-export const DESTRUCTORS_PROPERTY = 'destructors'
+export const DESTRUCTORS_PROPERTY = Symbol('destructors')
 
 /**
  * Health checks property
  */
-export const HEALTH_CHECKS_PROPERTY = 'healthChecks'
+export const HEALTH_CHECKS_PROPERTY = Symbol('healthChecks')
+
+/**
+ * Migrators live under this symbol
+ */
+export const MIGRATOR_PROPRTY = Symbol('migrators')
 
 /**
  * Constants with possilble transport values

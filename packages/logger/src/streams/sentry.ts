@@ -1,5 +1,9 @@
 import assert = require('assert')
+import { Writable } from 'stream'
+import { Streams, Level } from 'pino-multi-stream'
 import * as Sentry from '@sentry/node'
+import * as Integrations from '@sentry/integrations'
+import * as Parsers from '@sentry/node/dist/parsers'
 import readPkgUp = require('read-pkg-up')
 import lsmod = require('lsmod')
 
@@ -16,18 +20,21 @@ const {
   extractStackFromError,
   parseStack,
   prepareFramesForEvent,
-} = Sentry.Parsers
+} = Parsers
 
 /**
  * Sentry stream for Pino
  */
-class SentryStream {
+class SentryStream extends Writable {
   private release: string
   private env?: string = process.env.SENTRY_ENVIRONMENT || process.env.NODE_ENV
   private modules?: any = lsmod()
 
   constructor(opts: any) {
+    super()
     this.release = opts.release
+    // @ts-ignore
+    this[Symbol.for('pino.metadata')] = true
   }
 
   /**
@@ -48,9 +55,9 @@ class SentryStream {
       let stacktrace = undefined
       if (event.err && event.err.stack) {
         try {
-          const stack = await extractStackFromError(event.err)
+          const stack = extractStackFromError(event.err)
           const frames = await parseStack(stack)
-          stacktrace = { frames: await prepareFramesForEvent(frames) }
+          stacktrace = { frames: prepareFramesForEvent(frames) }
         } catch (e) { /* ignore */ }
       }
       Sentry.captureEvent({
@@ -105,30 +112,30 @@ class SentryStream {
   }
 }
 
-function sentryStreamFactory(config: Sentry.NodeOptions) {
-  const { logLevel, dsn } = config
+type SentryOpts = Sentry.NodeOptions & {
+  level: Level
+}
 
-  assert(dsn, '"dsn" property must be set')
+function sentryStreamFactory(config: SentryOpts): Streams[0] {
+  const { level = 'error', ...rest } = config
+
+  assert(rest.dsn, '"dsn" property must be set')
 
   Sentry.init({
-    ...config,
+    ...rest,
     defaultIntegrations: false,
     ...process.env.NODE_ENV === 'test' && {
       integrations: [
-        new Sentry.Integrations.Debug(),
+        new Integrations.Debug(),
       ],
     },
   })
 
-  const dest = new SentryStream({
-    release: readPkgUp.sync({ cwd: process.cwd() }).pkg.version,
-  })
-  // @ts-ignore
-  dest[Symbol.for('pino.metadata')] = true
+  const release = readPkgUp.sync({ cwd: process.cwd() }).pkg.version
 
   return {
-    level: logLevel || 'error',
-    stream: dest,
+    level,
+    stream: new SentryStream({ release }),
   }
 }
 

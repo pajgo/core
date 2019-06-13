@@ -1,0 +1,52 @@
+{
+  "name": "@microfleet/validator",
+  "description": "Microfleet Logger Plugin",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "tslint './src/**/*.ts' -c ../../tslint.json --project ./tsconfig.json",
+    "test": "yarn lint && yarn test:unit && yarn test:e2e",
+    "test:unit": "TS_NODE_TRANSPILE_ONLY=true TS_NODE_TYPE_CHECK=false mocha ./src/**/*.spec.ts",
+    "test:e2e": "mdep test run",
+    "compile": "tsc -b ./tsconfig.build.json",
+    "prepublishOnly": "yarn compile"
+  },
+  "tags": [
+    "microservice",
+    "microfleet",
+    "logger"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "contributors": [
+    "Evgeny Poyarkov <eugene@makeomatic.ca>",
+    "Aleksandr Sorokin <imarkoffko@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "dependencies": {
+    "@sentry/integrations": "^5.0.6",
+    "@sentry/node": "^5.0.6",
+    "lsmod": "^1.0.0",
+    "pino": "^5.12.2",
+    "pino-multi-stream": "^4.0.1",
+    "pino-pretty": "^2.6.0",
+    "sonic-boom": "^0.7.1"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "schemas/"
+  ]
+}

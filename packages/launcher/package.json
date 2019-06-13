@@ -1,0 +1,34 @@
+{
+  "name": "@microfleet/bin",
+  "description": "Abstract microservice core",
+  "version": "13.8.1",
+  "scripts": {
+
+  },
+  "repository": {
+    "type": "git",
+    "directory": "packages/launcher",
+    "url": "https://github.com/microfleet/core.git"
+  },
+  "bin": {
+    "mfleet": "./bin/mfleet.js"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "contributors": [
+    "Dmitry Gorbunov <me@tewi.tk> (http://tewi.tk)",
+    "Evgeny Poyarkov <eugene@makeomatic.ca>",
+    "Aleksandr Sorokin <imarkoffko@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 4.0.0"
+  },
+  "files": [
+    "bin/"
+  ]
+}

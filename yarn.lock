@@ -1287,6 +1287,14 @@
     "@sentry/utils" "5.0.6"
     tslib "^1.9.3"
 
+"@sentry/integrations@^5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@sentry/integrations/-/integrations-5.0.6.tgz#6e7a2c69629c5ccaa633a330cbf01a8b2565fd87"
+  integrity sha512-EmDUKXK2aClafR15VzPUx8ZZ/dC3jG6kLZ2l43QdTp56VO/pxH2AjtRzMBSJ+3qvqusDj/0v/6synbZQZU5SZw==
+  dependencies:
+    "@sentry/types" "5.0.6"
+    "@sentry/utils" "5.0.6"
+
 "@sentry/minimal@5.0.6":
   version "5.0.6"
   resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-5.0.6.tgz#7ba633d8d7057e56703124ff30b987021dfb4188"
@@ -8860,7 +8868,16 @@ read@1, read@~1.0.1, read@~1.0.7:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readable-stream@^3.0.0, readable-stream@^3.0.6, readable-stream@^3.1.1:
+readable-stream@^3.0.0, readable-stream@^3.0.6:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.3.0.tgz#cb8011aad002eb717bf040291feba8569c986fb9"
+  integrity sha512-EsI+s3k3XsW+fU8fQACLN59ky34AZ14LoeVZpYwmZvldCFo0r0gnelwF2TcMjLor/BTL5aDJVBMkss0dthToPw==
+  dependencies:
+    inherits "^2.0.3"
+    string_decoder "^1.1.1"
+    util-deprecate "^1.0.1"
+
+readable-stream@^3.1.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.2.0.tgz#de17f229864c120a9f56945756e4f32c4045245d"
   integrity sha512-RV20kLjdmpZuTF1INEb9IA3L68Nmi+Ri7ppZqo78wj//Pn62fCoJyV9zalccNzDD/OuJpMG4f+pfMl8+L6QdGw==

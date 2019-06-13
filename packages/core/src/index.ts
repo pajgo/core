@@ -200,11 +200,9 @@ export class Microfleet extends EventEmitter {
   public hook(event: string, ...args: any[]) {
     const listeners = this.listeners(event)
 
-    return Bluebird
-      .resolve(listeners)
-      .map((listener: (this: Microfleet, ...args: any[]) => any) => {
-        return listener.apply(this, args)
-      })
+    return Bluebird.map(listeners, (listener: (this: Microfleet, ...args: any[]) => any) => {
+      return listener.apply(this, args)
+    })
   }
 
   /**
@@ -464,11 +462,13 @@ export class Microfleet extends EventEmitter {
 
 // if there is no parent module we assume it's called as a binary
 if (!module.parent) {
-  const mservice = new Microfleet({ name: 'cli' })
-  mservice
-    .connect()
-    .catch((err: Error) => {
+  (async () => {
+    const mservice = new Microfleet({ name: 'cli' })
+    try {
+      await mservice.connect()
+    } catch (err) {
       mservice.log.fatal('Failed to start service', err)
-      setImmediate(() => { throw err })
-    })
+      throw err
+    }
+  })()
 }

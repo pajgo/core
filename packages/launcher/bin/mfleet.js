@@ -29,14 +29,13 @@ try {
 // init service
 const service = new Service();
 
-// connect
-service
-  .connect()
-  .asCallback((err) => {
-    if (err) {
-      service.log.fatal({ err }, 'service crashed');
-      throw err;
-    }
+(async () => {
+  try {
+    await service.connect()
+  } catch (e) {
+    service.log.fatal({ err }, 'service crashed');
+    throw err;
+  }
 
-    service.log.info('service started');
-  });
+  service.log.info('service started');
+})();

@@ -1,0 +1,23 @@
+{
+  "name": "@microfleet/logger-types",
+  "description": "@microfleet/logger types",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "tsc"
+  },
+  "repository": {
+    "directory": "packages/logger-types",
+    "type": "git",
+    "url": "https://github.com/microfleet/core.git"
+  },
+  "author": "Vitaly Aminev <v@makeomatic.ca>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/microfleet/core/issues"
+  },
+  "homepage": "https://github.com/microfleet/core#readme",
+  "files": [
+    "index.d.ts",
+    "private.d.ts"
+  ]
+}
